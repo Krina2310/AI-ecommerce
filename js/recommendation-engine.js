@@ -167,7 +167,8 @@
     if (!product) return [];
 
     var result = [];
-    var seen = { [productId]: true };
+    var seen = {};
+    seen[productId] = true;
 
     // First add explicitly related products
     product.relatedProducts.forEach(function(relId) {

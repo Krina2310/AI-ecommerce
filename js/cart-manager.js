@@ -61,7 +61,7 @@
   function updateQuantity(productId, quantity) {
     productId = parseInt(productId);
     quantity = parseInt(quantity);
-    if (isNaN(quantity) || quantity < 0) return { success: false, message: 'Invalid quantity.' };
+    if (isNaN(quantity) || quantity < 1) return { success: false, message: 'Invalid quantity.' };
 
     if (quantity === 0) return removeFromCart(productId);
 
