@@ -667,13 +667,14 @@
     if (countEl) countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '') + ' found';
 
     if (results.length === 0) {
-      document.getElementById('search-results-grid').innerHTML =
-        '<div class="no-results-full">' +
-          '<i class="fas fa-search-minus"></i>' +
-          '<h3>No results for "' + query + '"</h3>' +
-          '<p>Try different keywords or browse our categories.</p>' +
-          '<a href="products.html" class="btn btn-primary">Browse All Products</a>' +
-        '</div>';
+      var noResultsDiv = document.createElement('div');
+      noResultsDiv.className = 'no-results-full';
+      noResultsDiv.innerHTML = '<i class="fas fa-search-minus"></i><p>Try different keywords or browse our categories.</p><a href="products.html" class="btn btn-primary">Browse All Products</a>';
+      var heading = document.createElement('h3');
+      heading.textContent = 'No results for "' + query + '"';
+      noResultsDiv.insertBefore(heading, noResultsDiv.querySelector('p'));
+      var grid = document.getElementById('search-results-grid');
+      if (grid) { grid.innerHTML = ''; grid.appendChild(noResultsDiv); }
       // Show AI suggestions
       var aiSuggestions = window.RecommendationEngine.getTrendingProducts(4);
       window.Utils.renderProductCards('ai-suggestions-grid', aiSuggestions, true);
