@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail – ShopAI</title>
+  <meta name="description" content="View detailed product information with AI-powered recommendations.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header id="main-header"></header>
+
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" id="product-breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="products.html">Products</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Product</span>
+    </nav>
+  </div>
+
+  <!-- Product Detail -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="product-detail-container" id="product-detail-container">
+        <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Frequently Bought Together (AI) -->
+  <section class="section" style="background:#fff; border-top:1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="ai-section-tag"><i class="fas fa-robot"></i> AI Powered</div>
+          <h2 class="section-title">Frequently Bought Together</h2>
+          <p class="section-subtitle">Customers who viewed this also purchased</p>
+        </div>
+      </div>
+      <div class="products-grid" id="bought-together-grid">
+        <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Similar Products -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="ai-section-tag"><i class="fas fa-brain"></i> Content-Based AI</div>
+          <h2 class="section-title">Similar Products</h2>
+          <p class="section-subtitle">Products with matching features and price range</p>
+        </div>
+        <a href="products.html" class="view-all-link">See More <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid" id="similar-products-grid">
+        <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews -->
+  <section class="section" style="background:#fff; border-top:1px solid var(--border);">
+    <div class="container">
+      <div style="max-width:760px; margin:0 auto;">
+        <h2 class="section-title" style="margin-bottom:24px;">Customer Reviews</h2>
+        <div id="reviews-container">
+          <div class="spinner-overlay"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><i class="fas fa-robot"></i> ShopAI</a>
+          <p>AI-powered shopping for smarter discoveries.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="products.html?category=Electronics">Electronics</a></li>
+            <li><a href="products.html?category=Fashion">Fashion</a></li>
+            <li><a href="products.html?category=Books">Books</a></li>
+            <li><a href="products.html?category=Sports">Sports</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="cart.html">Cart</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ShopAI. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/user-tracking.js"></script>
+  <script src="js/recommendation-engine.js"></script>
+  <script src="js/cart-manager.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
