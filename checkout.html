@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout – ShopAI</title>
+  <meta name="description" content="Securely complete your purchase.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header id="main-header"></header>
+
+  <div class="page-header">
+    <div class="container">
+      <h1><i class="fas fa-lock"></i> Secure Checkout</h1>
+      <p>Complete your purchase safely and securely</p>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:36px; padding-bottom:64px;">
+    <div class="checkout-layout" style="display:grid; grid-template-columns:1fr 380px; gap:28px; align-items:start;">
+
+      <!-- Checkout Form -->
+      <div>
+        <form id="checkout-form" novalidate>
+
+          <!-- Billing Info -->
+          <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:28px; margin-bottom:20px;">
+            <div class="form-section-title"><i class="fas fa-user"></i> Billing Information</div>
+
+            <div class="form-group">
+              <label class="form-label" for="co-name">Full Name <span class="required">*</span></label>
+              <input type="text" id="co-name" class="form-input" placeholder="John Doe" autocomplete="name">
+              <span class="form-error" id="co-name-error"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="co-email">Email Address <span class="required">*</span></label>
+                <input type="email" id="co-email" class="form-input" placeholder="john@example.com" autocomplete="email">
+                <span class="form-error" id="co-email-error"></span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="co-phone">Phone Number <span class="required">*</span></label>
+                <input type="tel" id="co-phone" class="form-input" placeholder="+1 (555) 000-0000" autocomplete="tel">
+                <span class="form-error" id="co-phone-error"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="co-address">Street Address <span class="required">*</span></label>
+              <input type="text" id="co-address" class="form-input" placeholder="123 Main Street, Apt 4B" autocomplete="street-address">
+              <span class="form-error" id="co-address-error"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="co-city">City <span class="required">*</span></label>
+                <input type="text" id="co-city" class="form-input" placeholder="New York" autocomplete="address-level2">
+                <span class="form-error" id="co-city-error"></span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="co-state">State <span class="required">*</span></label>
+                <input type="text" id="co-state" class="form-input" placeholder="NY" autocomplete="address-level1">
+                <span class="form-error" id="co-state-error"></span>
+              </div>
+            </div>
+
+            <div class="form-group" style="max-width:200px;">
+              <label class="form-label" for="co-zip">ZIP Code <span class="required">*</span></label>
+              <input type="text" id="co-zip" class="form-input" placeholder="10001" autocomplete="postal-code">
+              <span class="form-error" id="co-zip-error"></span>
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:28px; margin-bottom:20px;">
+            <div class="form-section-title"><i class="fas fa-credit-card"></i> Payment Method</div>
+
+            <label class="payment-option">
+              <input type="radio" name="payment" value="card" checked aria-label="Pay with Credit or Debit Card">
+              <i class="fas fa-credit-card"></i>
+              <span class="payment-label">Credit / Debit Card</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="paypal" aria-label="Pay with PayPal">
+              <i class="fab fa-paypal"></i>
+              <span class="payment-label">PayPal</span>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="cod" aria-label="Pay with Cash on Delivery">
+              <i class="fas fa-money-bill-wave"></i>
+              <span class="payment-label">Cash on Delivery</span>
+            </label>
+
+            <!-- Card Fields -->
+            <div id="card-fields" style="margin-top:20px;">
+              <div class="form-group">
+                <label class="form-label" for="co-card-number">Card Number <span class="required">*</span></label>
+                <input type="text" id="co-card-number" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number">
+                <span class="form-error" id="co-card-number-error"></span>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="co-card-expiry">Expiry Date <span class="required">*</span></label>
+                  <input type="text" id="co-card-expiry" class="form-input" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+                  <span class="form-error" id="co-card-expiry-error"></span>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="co-card-cvv">CVV <span class="required">*</span></label>
+                  <input type="text" id="co-card-cvv" class="form-input" placeholder="123" maxlength="4" autocomplete="cc-csc">
+                  <span class="form-error" id="co-card-cvv-error"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">
+            <i class="fas fa-lock"></i> Place Order
+          </button>
+        </form>
+      </div>
+
+      <!-- Order Summary -->
+      <div>
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div id="checkout-items-list"></div>
+          <div style="margin-top:16px; border-top:1px solid var(--border); padding-top:16px;">
+            <div class="summary-row">
+              <span class="summary-label">Subtotal</span>
+              <span id="co-subtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Tax (10%)</span>
+              <span id="co-tax">$0.00</span>
+            </div>
+            <div class="summary-row summary-total">
+              <span>Total</span>
+              <span id="co-total">$0.00</span>
+            </div>
+          </div>
+          <div style="margin-top:16px; padding:12px; background:rgba(67,198,172,0.08); border-radius:var(--radius-sm); border:1px solid rgba(67,198,172,0.2);">
+            <p style="font-size:0.8rem; color:var(--accent-dark); text-align:center;"><i class="fas fa-shield-alt"></i> Your payment info is encrypted and secure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div class="modal-backdrop" id="order-success-modal">
+    <div class="modal">
+      <div class="modal-icon"><i class="fas fa-check"></i></div>
+      <h2>Order Placed!</h2>
+      <p>Thank you for your purchase. Your order has been confirmed and will be shipped soon.</p>
+      <p>Your order number:</p>
+      <div class="order-number-display" id="order-number">ORD-000000</div>
+      <div style="display:flex; gap:12px; justify-content:center; margin-top:20px; flex-wrap:wrap;">
+        <a href="profile.html" class="btn btn-secondary"><i class="fas fa-list"></i> View Orders</a>
+        <a href="index.html" class="btn btn-primary"><i class="fas fa-home"></i> Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><i class="fas fa-robot"></i> ShopAI</a>
+          <p>AI-powered shopping for smarter discoveries.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="cart.html">Cart</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="profile.html">My Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ShopAI. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/user-tracking.js"></script>
+  <script src="js/recommendation-engine.js"></script>
+  <script src="js/cart-manager.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Card number formatting
+    document.addEventListener('DOMContentLoaded', function() {
+      var cardInput = document.getElementById('co-card-number');
+      if (cardInput) {
+        cardInput.addEventListener('input', function() {
+          var v = this.value.replace(/\D/g, '').substring(0, 16);
+          this.value = v.replace(/(.{4})/g, '$1 ').trim();
+        });
+      }
+      var expiryInput = document.getElementById('co-card-expiry');
+      if (expiryInput) {
+        expiryInput.addEventListener('input', function() {
+          var v = this.value.replace(/\D/g, '').substring(0, 4);
+          if (v.length >= 2) v = v.substring(0, 2) + '/' + v.substring(2);
+          this.value = v;
+        });
+      }
+      // Payment method toggle for card fields
+      document.querySelectorAll('input[name="payment"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+          var cardFields = document.getElementById('card-fields');
+          if (cardFields) cardFields.style.display = radio.value === 'card' ? 'block' : 'none';
+        });
+      });
+      // Modal close on backdrop click
+      var modal = document.getElementById('order-success-modal');
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            // Don't close - user should use buttons
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

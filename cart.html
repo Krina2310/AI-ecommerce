@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart – ShopAI</title>
+  <meta name="description" content="Review your cart and proceed to checkout.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header id="main-header"></header>
+
+  <div class="page-header">
+    <div class="container">
+      <h1><i class="fas fa-shopping-cart"></i> Shopping Cart</h1>
+      <p>Review your items and complete your order</p>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:36px; padding-bottom:64px;">
+
+    <!-- Empty Cart State -->
+    <div class="empty-cart-state" id="empty-cart" style="display:none; flex-direction:column; align-items:center; justify-content:center; padding:80px 24px; text-align:center;">
+      <i class="fas fa-shopping-cart" style="font-size:4rem; color:var(--text-light); margin-bottom:20px; display:block;"></i>
+      <h2 style="font-size:1.5rem; color:var(--text); margin-bottom:8px;">Your cart is empty</h2>
+      <p style="color:var(--text-muted); margin-bottom:24px;">Looks like you haven't added anything yet. Let our AI recommend products for you!</p>
+      <a href="products.html" class="btn btn-primary"><i class="fas fa-th-large"></i> Browse Products</a>
+    </div>
+
+    <!-- Cart with Items -->
+    <div class="cart-layout" id="cart-with-items" style="display:none;">
+
+      <!-- Cart Items -->
+      <div>
+        <div id="cart-items-container"></div>
+        <div style="margin-top:20px;">
+          <a href="products.html" style="color:var(--primary); font-size:0.9rem; font-weight:600;">
+            <i class="fas fa-arrow-left"></i> Continue Shopping
+          </a>
+        </div>
+      </div>
+
+      <!-- Order Summary Sidebar -->
+      <div class="cart-sidebar">
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-row">
+            <span class="summary-label">Subtotal</span>
+            <span id="summary-subtotal">$0.00</span>
+          </div>
+          <div class="summary-row" id="discount-row" style="display:none; color:var(--success);">
+            <span class="summary-label">Discount <span id="discount-label" class="summary-discount-label"></span></span>
+            <span id="summary-discount">-$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Tax (10%)</span>
+            <span id="summary-tax">$0.00</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Shipping</span>
+            <span id="summary-shipping">$0.00</span>
+          </div>
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <span id="summary-total">$0.00</span>
+          </div>
+
+          <div class="discount-input-row">
+            <input type="text" id="discount-input" placeholder="DISCOUNT CODE">
+            <button class="btn btn-secondary btn-sm" id="apply-discount-btn">Apply</button>
+          </div>
+
+          <div class="checkout-btn-wrapper">
+            <a href="checkout.html" class="btn btn-primary btn-block btn-lg">
+              <i class="fas fa-lock"></i> Proceed to Checkout
+            </a>
+          </div>
+
+          <p class="shipping-note"><i class="fas fa-truck"></i> Free shipping on orders over $100!</p>
+
+          <div style="margin-top:16px; display:flex; justify-content:center; gap:16px; opacity:0.5;">
+            <i class="fab fa-cc-visa fa-2x"></i>
+            <i class="fab fa-cc-mastercard fa-2x"></i>
+            <i class="fab fa-cc-paypal fa-2x"></i>
+            <i class="fab fa-cc-amex fa-2x"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customers Also Bought (AI) -->
+  <section class="section" style="background:#fff; border-top:1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="ai-section-tag"><i class="fas fa-robot"></i> AI Powered</div>
+          <h2 class="section-title">Customers Also Bought</h2>
+          <p class="section-subtitle">Frequently purchased alongside items in your cart</p>
+        </div>
+      </div>
+      <div class="products-grid" id="also-bought-grid">
+        <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><i class="fas fa-robot"></i> ShopAI</a>
+          <p>AI-powered shopping for smarter discoveries.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="products.html?category=Electronics">Electronics</a></li>
+            <li><a href="products.html?category=Fashion">Fashion</a></li>
+            <li><a href="products.html?category=Books">Books</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ShopAI. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/user-tracking.js"></script>
+  <script src="js/recommendation-engine.js"></script>
+  <script src="js/cart-manager.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
