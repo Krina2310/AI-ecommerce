@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Products – ShopAI</title>
+  <meta name="description" content="Browse all products with AI-powered filtering and recommendations.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header id="main-header"></header>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1><i class="fas fa-th-large"></i> Browse Products</h1>
+      <p>Find exactly what you're looking for with smart filters</p>
+    </div>
+  </div>
+
+  <!-- Filter overlay for mobile -->
+  <div class="filter-overlay" id="filter-overlay"></div>
+
+  <div class="container" style="padding-top:32px; padding-bottom:64px;">
+
+    <!-- Filter toggle button (mobile) -->
+    <button class="filter-toggle-btn" id="filter-toggle-btn">
+      <i class="fas fa-sliders-h"></i> Filters
+    </button>
+
+    <div class="products-page-layout">
+
+      <!-- Sidebar Filters -->
+      <aside class="filter-sidebar" id="filter-sidebar">
+        <div class="filter-sidebar-header">
+          <h3><i class="fas fa-filter"></i> Filters</h3>
+          <button class="filter-clear-btn" id="clear-all-filters">Clear All</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="filter-group">
+          <div class="filter-group-title">Category</div>
+          <label class="filter-checkbox"><input type="checkbox" name="category" value="Electronics"> Electronics</label>
+          <label class="filter-checkbox"><input type="checkbox" name="category" value="Fashion"> Fashion</label>
+          <label class="filter-checkbox"><input type="checkbox" name="category" value="Books"> Books</label>
+          <label class="filter-checkbox"><input type="checkbox" name="category" value="Home &amp; Garden"> Home &amp; Garden</label>
+          <label class="filter-checkbox"><input type="checkbox" name="category" value="Sports"> Sports</label>
+        </div>
+
+        <!-- Price Range Filter -->
+        <div class="filter-group">
+          <div class="filter-group-title">Price Range</div>
+          <div class="price-range-inputs">
+            <input type="number" id="min-price" placeholder="Min $" min="0" step="1">
+            <span class="price-range-sep">–</span>
+            <input type="number" id="max-price" placeholder="Max $" min="0" step="1">
+          </div>
+        </div>
+
+        <!-- Rating Filter -->
+        <div class="filter-group">
+          <div class="filter-group-title">Minimum Rating</div>
+          <label class="filter-radio"><input type="radio" name="rating" value="0" checked> All Ratings</label>
+          <label class="filter-radio"><input type="radio" name="rating" value="4.5"> ★ 4.5+</label>
+          <label class="filter-radio"><input type="radio" name="rating" value="4"> ★ 4.0+</label>
+          <label class="filter-radio"><input type="radio" name="rating" value="3.5"> ★ 3.5+</label>
+        </div>
+
+        <!-- Brand Filter -->
+        <div class="filter-group">
+          <div class="filter-group-title">Brand</div>
+          <div id="brand-filter-list">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Products Area -->
+      <main>
+        <div class="products-main-header">
+          <div class="products-search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="products-search" placeholder="Search within results...">
+          </div>
+          <span id="result-count" class="text-muted"></span>
+          <div class="sort-select-wrapper">
+            <label for="sort-select"><i class="fas fa-sort"></i> Sort:</label>
+            <select id="sort-select">
+              <option value="popular">Most Popular</option>
+              <option value="newest">Newest</option>
+              <option value="rating">Top Rated</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+          <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+        </div>
+
+        <div class="load-more-wrapper">
+          <button class="btn btn-secondary" id="load-more-btn" style="display:none;">
+            <i class="fas fa-plus"></i> Load More Products
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><i class="fas fa-robot"></i> ShopAI</a>
+          <p>AI-powered shopping for smarter discoveries.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="products.html?category=Electronics">Electronics</a></li>
+            <li><a href="products.html?category=Fashion">Fashion</a></li>
+            <li><a href="products.html?category=Books">Books</a></li>
+            <li><a href="products.html?category=Sports">Sports</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="cart.html">Cart</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ShopAI. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/user-tracking.js"></script>
+  <script src="js/recommendation-engine.js"></script>
+  <script src="js/cart-manager.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Mobile filter sidebar toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('filter-toggle-btn');
+      var sidebar = document.getElementById('filter-sidebar');
+      var overlay = document.getElementById('filter-overlay');
+      if (btn && sidebar) {
+        btn.addEventListener('click', function() {
+          sidebar.classList.toggle('open');
+          overlay.classList.toggle('active');
+        });
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('active');
+        });
+      }
+      // Clear filters
+      var clearBtn = document.getElementById('clear-all-filters');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+          document.querySelectorAll('input[name="category"], input[name="brand"]').forEach(function(i) { i.checked = false; });
+          var ratingAll = document.querySelector('input[name="rating"][value="0"]');
+          if (ratingAll) ratingAll.checked = true;
+          var minP = document.getElementById('min-price');
+          var maxP = document.getElementById('max-price');
+          if (minP) minP.value = '';
+          if (maxP) maxP.value = '';
+          document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(function(el) {
+            el.dispatchEvent(new Event('change'));
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
