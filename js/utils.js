@@ -122,6 +122,20 @@
     return text.substring(0, length).trimEnd() + '...';
   }
 
+  function makeImgFallbackSrc(text) {
+    var label = (text || 'Product').substring(0, 24);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300">' +
+      '<rect width="400" height="300" fill="#f0f0f0"/>' +
+      '<rect x="155" y="85" width="90" height="75" rx="6" fill="#d0d0d0"/>' +
+      '<circle cx="183" cy="110" r="12" fill="#b8b8b8"/>' +
+      '<polygon points="155,160 210,110 245,160" fill="#c4c4c4"/>' +
+      '<text x="200" y="205" font-family="Arial,sans-serif" font-size="13" fill="#888" text-anchor="middle">' +
+        label +
+      '</text>' +
+    '</svg>';
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+
   function renderStars(rating) {
     const full = Math.floor(rating);
     const half = rating % 1 >= 0.5;
@@ -139,7 +153,7 @@
     card.innerHTML =
       '<div class="product-card-image">' +
         '<a href="product-detail.html?id=' + product.id + '">' +
-          '<img src="' + product.image + '" alt="' + product.name + '" loading="lazy">' +
+          '<img src="' + product.image + '" alt="' + product.name + '" loading="lazy" onerror="this.onerror=null;this.src=window.Utils.makeImgFallbackSrc(this.alt);">' +
         '</a>' +
         (showRecommendationBadge ? '<span class="ai-badge"><i class="fas fa-robot"></i> AI Pick</span>' : '') +
         (!product.inStock ? '<span class="out-of-stock-badge">Out of Stock</span>' : '') +
@@ -198,6 +212,7 @@
     formatDate: formatDate,
     truncateText: truncateText,
     renderStars: renderStars,
+    makeImgFallbackSrc: makeImgFallbackSrc,
     createProductCard: createProductCard,
     renderProductCards: renderProductCards
   };

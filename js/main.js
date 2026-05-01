@@ -105,7 +105,7 @@
           var item = document.createElement('a');
           item.href = 'product-detail.html?id=' + p.id;
           item.className = 'suggestion-item';
-          item.innerHTML = '<img src="' + p.image + '" alt="' + p.name + '"><span>' + p.name + '</span><span class="suggestion-price">' + window.Utils.formatPrice(p.price) + '</span>';
+          item.innerHTML = '<img src="' + p.image + '" alt="' + p.name + '" onerror="this.onerror=null;this.src=window.Utils.makeImgFallbackSrc(this.alt);"><span>' + p.name + '</span><span class="suggestion-price">' + window.Utils.formatPrice(p.price) + '</span>';
           suggestionsBox.appendChild(item);
         });
         if (results.length > 5) {
@@ -268,7 +268,7 @@
     if (container) {
       container.innerHTML =
         '<div class="product-detail-image">' +
-          '<img src="' + product.image + '" alt="' + product.name + '" id="main-product-image">' +
+          '<img src="' + product.image + '" alt="' + product.name + '" id="main-product-image" onerror="this.onerror=null;this.src=window.Utils.makeImgFallbackSrc(this.alt);">' +
         '</div>' +
         '<div class="product-detail-info">' +
           '<span class="product-category-badge">' + product.category + '</span>' +
@@ -373,7 +373,7 @@
 
     cartContent.innerHTML = items.map(function(item) {
       return '<div class="cart-item" data-id="' + item.productId + '">' +
-        '<img src="' + item.product.image + '" alt="' + item.product.name + '" class="cart-item-image">' +
+        '<img src="' + item.product.image + '" alt="' + item.product.name + '" class="cart-item-image" onerror="this.onerror=null;this.src=window.Utils.makeImgFallbackSrc(this.alt);">' +
         '<div class="cart-item-details">' +
           '<h3><a href="product-detail.html?id=' + item.productId + '">' + item.product.name + '</a></h3>' +
           '<p class="cart-item-brand">' + item.product.brand + '</p>' +
@@ -488,7 +488,7 @@
     if (summaryList) {
       summaryList.innerHTML = items.map(function(item) {
         return '<div class="checkout-item">' +
-          '<img src="' + item.product.image + '" alt="' + item.product.name + '">' +
+          '<img src="' + item.product.image + '" alt="' + item.product.name + '" onerror="this.onerror=null;this.src=window.Utils.makeImgFallbackSrc(this.alt);">' +
           '<div><span>' + item.product.name + '</span><span>x' + item.quantity + '</span></div>' +
           '<span>' + window.Utils.formatPrice(item.product.price * item.quantity) + '</span>' +
         '</div>';
