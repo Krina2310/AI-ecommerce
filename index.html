@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopAI – AI-Powered E-Commerce</title>
+  <meta name="description" content="Discover products tailored just for you with AI-powered recommendations.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="main-header"></header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content slide-up">
+        <div class="hero-badge">
+          <i class="fas fa-robot"></i> AI-Powered Shopping Experience
+        </div>
+        <h1>Discover Products <span>Made For You</span></h1>
+        <p>Our AI learns your taste and surfaces the best products across Electronics, Fashion, Books, Home & Garden, and Sports.</p>
+        <form class="hero-search" action="search-results.html" method="get">
+          <input type="text" name="q" placeholder="Search for headphones, books, yoga mat...">
+          <button type="submit"><i class="fas fa-search"></i> Search</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Personalized For You -->
+  <section class="section" id="personalized-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="ai-section-tag"><i class="fas fa-robot"></i> AI Personalized</div>
+          <h2 class="section-title">Picked For You</h2>
+          <p class="section-subtitle">Recommendations based on your browsing behavior</p>
+        </div>
+        <a href="products.html" class="view-all-link">View All <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid" id="personalized-grid">
+        <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Now -->
+  <section class="section" style="background:#fff; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="ai-section-tag"><i class="fas fa-fire"></i> Trending</div>
+          <h2 class="section-title">Trending Now</h2>
+          <p class="section-subtitle">What shoppers are loving right now</p>
+        </div>
+        <a href="products.html" class="view-all-link">View All <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid" id="trending-grid">
+        <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Categories -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Shop by Category</h2>
+          <p class="section-subtitle">Explore our wide range of product categories</p>
+        </div>
+      </div>
+      <div class="categories-grid">
+        <a href="products.html?category=Electronics" class="category-card">
+          <div class="category-icon"><i class="fas fa-laptop"></i></div>
+          <span class="category-name">Electronics</span>
+          <span class="category-count">8+ products</span>
+        </a>
+        <a href="products.html?category=Fashion" class="category-card">
+          <div class="category-icon"><i class="fas fa-tshirt"></i></div>
+          <span class="category-name">Fashion</span>
+          <span class="category-count">5+ products</span>
+        </a>
+        <a href="products.html?category=Books" class="category-card">
+          <div class="category-icon"><i class="fas fa-book"></i></div>
+          <span class="category-name">Books</span>
+          <span class="category-count">5+ products</span>
+        </a>
+        <a href="products.html?category=Home+%26+Garden" class="category-card">
+          <div class="category-icon"><i class="fas fa-home"></i></div>
+          <span class="category-name">Home &amp; Garden</span>
+          <span class="category-count">6+ products</span>
+        </a>
+        <a href="products.html?category=Sports" class="category-card">
+          <div class="category-icon"><i class="fas fa-dumbbell"></i></div>
+          <span class="category-name">Sports</span>
+          <span class="category-count">7+ products</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Arrivals -->
+  <section class="section" style="background:#fff; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="ai-section-tag"><i class="fas fa-star"></i> Fresh</div>
+          <h2 class="section-title">New Arrivals</h2>
+          <p class="section-subtitle">The latest additions to our catalog</p>
+        </div>
+        <a href="products.html" class="view-all-link">View All <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="products-grid" id="new-arrivals-grid">
+        <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="container">
+      <h2>Get Personalized Deals</h2>
+      <p>Subscribe and our AI will send you the best offers tailored to your taste.</p>
+      <form class="newsletter-form" onsubmit="event.preventDefault(); window.Utils && window.Utils.showToast('You\'re subscribed! Welcome aboard.', 'success');">
+        <input type="email" placeholder="Enter your email address" required>
+        <button type="submit">Subscribe <i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><i class="fas fa-robot"></i> ShopAI</a>
+          <p>Your AI-powered shopping companion. We learn your preferences and surface products you'll love.</p>
+          <div class="footer-social" style="margin-top:16px;">
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="products.html?category=Electronics">Electronics</a></li>
+            <li><a href="products.html?category=Fashion">Fashion</a></li>
+            <li><a href="products.html?category=Books">Books</a></li>
+            <li><a href="products.html?category=Sports">Sports</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="cart.html">Shopping Cart</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ShopAI. All rights reserved.</span>
+        <span>Built with <i class="fas fa-heart" style="color:var(--secondary);"></i> and AI</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/products-data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/user-tracking.js"></script>
+  <script src="js/recommendation-engine.js"></script>
+  <script src="js/cart-manager.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | AI-ecommerce</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="form-container">
+    <h2>Login</h2>
+    <form id="loginForm" autocomplete="off">
+      <label>Username or Email</label>
+      <input type="text" id="loginUser" required>
+      <label>Password</label>
+      <input type="password" id="loginPass" required>
+      <label>
+        <input type="checkbox" id="rememberMe"> Remember Me
+      </label>
+      <button type="submit">Login</button>
+      <p>Don't have an account? <a href="register.html">Register</a></p>
+      <div id="loginError"></div>
+    </form>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+</html>

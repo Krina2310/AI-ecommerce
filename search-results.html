@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results – ShopAI</title>
+  <meta name="description" content="Find products with AI-enhanced search results.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header id="main-header"></header>
+
+  <div class="page-header">
+    <div class="container">
+      <h1><i class="fas fa-search"></i> Search Results</h1>
+      <p class="search-query">Showing results for <strong id="search-query-display"></strong></p>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:32px; padding-bottom:64px;">
+
+    <!-- Search Bar -->
+    <div class="search-page-bar">
+      <i class="fas fa-search" style="color:var(--text-light);"></i>
+      <input type="text" id="search-page-input" placeholder="Search again...">
+      <button class="btn btn-primary btn-sm" onclick="var q=document.getElementById('search-page-input').value.trim(); if(q) window.location.href='search-results.html?q='+encodeURIComponent(q);">
+        Search
+      </button>
+    </div>
+
+    <!-- Results Header -->
+    <div class="search-results-header">
+      <span id="results-count" style="color:var(--text-muted); font-size:0.9rem;"></span>
+    </div>
+
+    <!-- Results Grid -->
+    <div class="products-grid" id="search-results-grid">
+      <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+    </div>
+
+    <!-- AI Suggestions (shown when no results or few results) -->
+    <div id="ai-suggestions-section" style="margin-top:48px; display:none;">
+      <div class="section-header">
+        <div>
+          <div class="ai-suggestions-label">
+            <i class="fas fa-robot"></i> AI suggests these popular products you might like
+          </div>
+          <h2 class="section-title">You Might Also Like</h2>
+          <p class="section-subtitle">Trending products based on what others are buying</p>
+        </div>
+      </div>
+      <div class="products-grid" id="ai-suggestions-grid">
+        <div class="spinner-overlay" style="grid-column:1/-1"><div class="spinner"></div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><i class="fas fa-robot"></i> ShopAI</a>
+          <p>AI-powered shopping for smarter discoveries.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <ul>
+            <li><a href="products.html?category=Electronics">Electronics</a></li>
+            <li><a href="products.html?category=Fashion">Fashion</a></li>
+            <li><a href="products.html?category=Books">Books</a></li>
+            <li><a href="products.html?category=Sports">Sports</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="cart.html">Cart</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ShopAI. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/user-tracking.js"></script>
+  <script src="js/recommendation-engine.js"></script>
+  <script src="js/cart-manager.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Show AI suggestions section when there are no / few results
+    document.addEventListener('DOMContentLoaded', function() {
+      var params = new URLSearchParams(window.location.search);
+      var q = params.get('q') || '';
+      var results = q ? window.searchProducts(q) : [];
+      if (results.length === 0) {
+        var section = document.getElementById('ai-suggestions-section');
+        if (section) section.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
