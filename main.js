@@ -11,7 +11,7 @@
     var page = _detectPage();
     if (page === 'index') initIndexPage();
     else if (page === 'products') initProductsPage();
-    else if (page === 'product-detail') initProductDetailPage();
+    else if (page === 'product_detail') initProductDetailPage();
     else if (page === 'cart') initCartPage();
     else if (page === 'checkout') initCheckoutPage();
     else if (page === 'profile') initProfilePage();
@@ -21,7 +21,7 @@
   function _detectPage() {
     var path = window.location.pathname;
     if (path.includes('products.html')) return 'products';
-    if (path.includes('product-detail.html')) return 'product-detail';
+    if (path.includes('product_detail.html')) return 'product_detail';
     if (path.includes('cart.html')) return 'cart';
     if (path.includes('checkout.html')) return 'checkout';
     if (path.includes('profile.html')) return 'profile';
@@ -103,7 +103,7 @@
         suggestionsBox.innerHTML = '';
         results.slice(0, 5).forEach(function(p) {
           var item = document.createElement('a');
-          item.href = 'product-detail.html?id=' + p.id;
+          item.href = 'product_detail.html?id=' + p.id;
           item.className = 'suggestion-item';
           item.innerHTML = '<img src="' + p.image + '" alt="' + p.name + '"><span>' + p.name + '</span><span class="suggestion-price">' + window.Utils.formatPrice(p.price) + '</span>';
           suggestionsBox.appendChild(item);
@@ -375,7 +375,7 @@
       return '<div class="cart-item" data-id="' + item.productId + '">' +
         '<img src="' + item.product.image + '" alt="' + item.product.name + '" class="cart-item-image">' +
         '<div class="cart-item-details">' +
-          '<h3><a href="product-detail.html?id=' + item.productId + '">' + item.product.name + '</a></h3>' +
+          '<h3><a href="product_detail.html?id=' + item.productId + '">' + item.product.name + '</a></h3>' +
           '<p class="cart-item-brand">' + item.product.brand + '</p>' +
           '<p class="cart-item-price">' + window.Utils.formatPrice(item.product.price) + '</p>' +
         '</div>' +

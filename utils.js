@@ -138,7 +138,7 @@
     card.className = 'product-card' + (showRecommendationBadge ? ' ai-recommended' : '');
     card.innerHTML =
       '<div class="product-card-image">' +
-        '<a href="product-detail.html?id=' + product.id + '">' +
+        '<a href="product_detail.html?id=' + product.id + '">' +
           '<img src="' + product.image + '" alt="' + product.name + '" loading="lazy">' +
         '</a>' +
         (showRecommendationBadge ? '<span class="ai-badge"><i class="fas fa-robot"></i> AI Pick</span>' : '') +
@@ -146,7 +146,7 @@
       '</div>' +
       '<div class="product-card-body">' +
         '<span class="product-category">' + product.category + '</span>' +
-        '<h3 class="product-name"><a href="product-detail.html?id=' + product.id + '">' + product.name + '</a></h3>' +
+        '<h3 class="product-name"><a href="product_detail.html?id=' + product.id + '">' + product.name + '</a></h3>' +
         '<div class="product-rating">' +
           '<div class="stars">' + renderStars(product.rating) + '</div>' +
           '<span class="rating-count">(' + product.reviews.toLocaleString() + ')</span>' +
