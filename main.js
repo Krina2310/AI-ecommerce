@@ -7,6 +7,7 @@
     updateCartCount();
     initSearch();
     initMobileMenu();
+    injectAuthModal();
 
     // Page-specific initialization
     var page = _detectPage();
@@ -38,11 +39,12 @@
     var session = (function() {
       try { var s = localStorage.getItem('shopai_session'); return s ? JSON.parse(s) : null; } catch(e) { return null; }
     }());
+    var firstName = session ? (session.name || 'Friend').split(' ')[0] : '';
     var authLinks = session
-      ? '<a href="profile.html"><i class="fas fa-user-circle"></i> ' + ((session.name || 'Account').split(' ')[0]) + '</a>' +
+      ? '<a href="profile.html" class="nav-greeting"><i class="fas fa-user-circle"></i> Hello, ' + firstName + '!</a>' +
         '<a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>'
-      : '<a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>' +
-        '<a href="register.html"><i class="fas fa-user-plus"></i> Register</a>';
+      : '<a href="login.html" id="nav-login-btn"><i class="fas fa-sign-in-alt"></i> Login</a>' +
+        '<a href="register.html" id="nav-register-btn"><i class="fas fa-user-plus"></i> Register</a>';
     header.innerHTML =
       '<div class="header-inner container">' +
         '<a href="index.html" class="logo">' +
@@ -51,7 +53,6 @@
         '<nav class="nav-links" id="nav-links">' +
           '<a href="index.html"><i class="fas fa-home"></i> Home</a>' +
           '<a href="products.html"><i class="fas fa-th-large"></i> Products</a>' +
-          '<a href="profile.html"><i class="fas fa-user"></i> Profile</a>' +
           '<a href="cart.html" class="cart-link">' +
             '<i class="fas fa-shopping-cart"></i> Cart' +
             '<span class="cart-badge" id="cart-count">' + (cartCount > 0 ? cartCount : '') + '</span>' +
@@ -84,11 +85,231 @@
       if (!link) return;
       e.preventDefault();
       try { localStorage.removeItem('shopai_session'); } catch(err) {}
-      window.location.href = 'login.html';
+      renderHeader();
+      if (window.Utils && window.Utils.showToast) {
+        window.Utils.showToast('You have been logged out.', 'success');
+      }
     });
   }
 
-  function updateCartCount() {
+  // ---- Auth Modal ----
+  function injectAuthModal() {
+    if (document.getElementById('auth-modal-backdrop')) return;
+    if (_detectPage() === 'auth') return; // standalone pages handle themselves
+
+    var el = document.createElement('div');
+    el.innerHTML =
+      '<div class="modal-backdrop" id="auth-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">' +
+        '<div class="modal auth-modal" id="auth-modal">' +
+          '<button class="modal-close" id="auth-modal-close" aria-label="Close">' +
+            '<i class="fas fa-times"></i>' +
+          '</button>' +
+          '<a href="index.html" class="auth-modal-logo">' +
+            '<i class="fas fa-robot"></i> ShopAI' +
+          '</a>' +
+          '<div class="auth-tabs" role="tablist">' +
+            '<button class="auth-tab active" id="modal-tab-login" role="tab" aria-selected="true">Sign In</button>' +
+            '<button class="auth-tab" id="modal-tab-register" role="tab" aria-selected="false">Create Account</button>' +
+          '</div>' +
+
+          '<!-- Login panel -->' +
+          '<div id="modal-login-panel">' +
+            '<div class="alert alert-error" id="login-alert" role="alert" style="display:none;align-items:flex-start;gap:10px;">' +
+              '<i class="fas fa-exclamation-circle"></i>' +
+              '<span id="login-alert-msg"></span>' +
+            '</div>' +
+            '<form id="login-form" novalidate>' +
+              '<div class="form-group">' +
+                '<label class="form-label" for="login-email">Email address</label>' +
+                '<div class="auth-input-wrap">' +
+                  '<i class="fas fa-envelope auth-input-icon"></i>' +
+                  '<input type="email" id="login-email" name="email" class="form-input" placeholder="you@example.com" autocomplete="email" required>' +
+                '</div>' +
+                '<span class="form-error" id="login-email-error"></span>' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label class="form-label" for="login-password">Password</label>' +
+                '<div class="auth-input-wrap">' +
+                  '<i class="fas fa-lock auth-input-icon"></i>' +
+                  '<input type="password" id="login-password" name="password" class="form-input" placeholder="Enter your password" autocomplete="current-password" required>' +
+                  '<button type="button" class="toggle-password" id="toggle-login-pw" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>' +
+                '</div>' +
+                '<span class="form-error" id="login-password-error"></span>' +
+              '</div>' +
+              '<div class="auth-footer-row">' +
+                '<label class="auth-check">' +
+                  '<input type="checkbox" id="remember-me" name="rememberMe">' +
+                  '<span>Remember me</span>' +
+                '</label>' +
+                '<a href="#" class="auth-forgot" id="forgot-password-link">Forgot password?</a>' +
+              '</div>' +
+              '<button type="submit" class="btn btn-primary btn-block" id="login-btn">' +
+                '<i class="fas fa-sign-in-alt"></i> Sign In' +
+              '</button>' +
+            '</form>' +
+            '<p class="auth-switch-text">Don\'t have an account? <a href="#" class="auth-tab-switch" data-tab="register">Create one free</a></p>' +
+          '</div>' +
+
+          '<!-- Register panel -->' +
+          '<div id="modal-register-panel" style="display:none;">' +
+            '<div class="alert alert-error" id="register-alert" role="alert" style="display:none;align-items:flex-start;gap:10px;">' +
+              '<i class="fas fa-exclamation-circle"></i>' +
+              '<span id="register-alert-msg"></span>' +
+            '</div>' +
+            '<form id="register-form" novalidate>' +
+              '<div class="form-group">' +
+                '<label class="form-label" for="reg-name">Full name <span style="color:var(--error)">*</span></label>' +
+                '<div class="auth-input-wrap">' +
+                  '<i class="fas fa-user auth-input-icon"></i>' +
+                  '<input type="text" id="reg-name" name="fullName" class="form-input" placeholder="Jane Smith" autocomplete="name" required>' +
+                '</div>' +
+                '<span class="form-error" id="reg-name-error"></span>' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label class="form-label" for="reg-email">Email address <span style="color:var(--error)">*</span></label>' +
+                '<div class="auth-input-wrap">' +
+                  '<i class="fas fa-envelope auth-input-icon"></i>' +
+                  '<input type="email" id="reg-email" name="email" class="form-input" placeholder="you@example.com" autocomplete="email" required>' +
+                '</div>' +
+                '<span class="form-error" id="reg-email-error"></span>' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label class="form-label" for="reg-password">Password <span style="color:var(--error)">*</span></label>' +
+                '<div class="auth-input-wrap">' +
+                  '<i class="fas fa-lock auth-input-icon"></i>' +
+                  '<input type="password" id="reg-password" name="password" class="form-input" placeholder="Create a strong password" autocomplete="new-password" required>' +
+                  '<button type="button" class="toggle-password" id="toggle-reg-pw" aria-label="Toggle password visibility"><i class="fas fa-eye"></i></button>' +
+                '</div>' +
+                '<div class="strength-bar-container" id="strength-bar-container" style="display:none;">' +
+                  '<div class="strength-bar-track"><div class="strength-bar-fill" id="strength-bar-fill"></div></div>' +
+                  '<span class="strength-label" id="strength-label"></span>' +
+                  '<div class="strength-hints">' +
+                    '<span class="strength-hint" id="hint-length"><i class="fas fa-circle"></i> 8+ chars</span>' +
+                    '<span class="strength-hint" id="hint-upper"><i class="fas fa-circle"></i> Uppercase</span>' +
+                    '<span class="strength-hint" id="hint-number"><i class="fas fa-circle"></i> Number</span>' +
+                    '<span class="strength-hint" id="hint-special"><i class="fas fa-circle"></i> Special</span>' +
+                  '</div>' +
+                '</div>' +
+                '<span class="form-error" id="reg-password-error"></span>' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label class="form-label" for="reg-confirm">Confirm password <span style="color:var(--error)">*</span></label>' +
+                '<div class="auth-input-wrap">' +
+                  '<i class="fas fa-lock auth-input-icon"></i>' +
+                  '<input type="password" id="reg-confirm" name="confirmPassword" class="form-input" placeholder="Repeat your password" autocomplete="new-password" required>' +
+                  '<button type="button" class="toggle-password" id="toggle-reg-confirm" aria-label="Toggle confirm password visibility"><i class="fas fa-eye"></i></button>' +
+                '</div>' +
+                '<span class="form-error" id="reg-confirm-error"></span>' +
+              '</div>' +
+              '<div class="form-group">' +
+                '<label class="auth-check">' +
+                  '<input type="checkbox" id="reg-terms" name="terms" required>' +
+                  '<span>I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a></span>' +
+                '</label>' +
+                '<span class="form-error" id="reg-terms-error"></span>' +
+              '</div>' +
+              '<button type="submit" class="btn btn-primary btn-block" id="register-btn">' +
+                '<i class="fas fa-user-plus"></i> Create Account' +
+              '</button>' +
+            '</form>' +
+            '<p class="auth-switch-text">Already have an account? <a href="#" class="auth-tab-switch" data-tab="login">Sign in</a></p>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(el.firstChild);
+
+    // Wire up modal interactivity
+    _bindAuthModal();
+
+    // Init form logic (auth.js must be loaded)
+    if (window.AuthModule) {
+      window.AuthModule.initLogin();
+      window.AuthModule.initRegister();
+    }
+  }
+
+  function _bindAuthModal() {
+    // Tab switching (live delegation – works even after re-inject)
+    document.addEventListener('click', function(e) {
+      var switchLink = e.target.closest('.auth-tab-switch');
+      if (switchLink) {
+        e.preventDefault();
+        _openAuthModal(switchLink.dataset.tab || 'login');
+        return;
+      }
+      var loginTabBtn = e.target.closest('#modal-tab-login');
+      if (loginTabBtn) { e.preventDefault(); _switchAuthTab('login'); return; }
+      var registerTabBtn = e.target.closest('#modal-tab-register');
+      if (registerTabBtn) { e.preventDefault(); _switchAuthTab('register'); return; }
+
+      // Open modal from nav links
+      var navLogin = e.target.closest('#nav-login-btn');
+      if (navLogin) { e.preventDefault(); _openAuthModal('login'); return; }
+      var navRegister = e.target.closest('#nav-register-btn');
+      if (navRegister) { e.preventDefault(); _openAuthModal('register'); return; }
+
+      // Close via close button
+      var closeBtn = e.target.closest('#auth-modal-close');
+      if (closeBtn) { _closeAuthModal(); return; }
+
+      // Close via backdrop click (outside modal card)
+      var backdrop = document.getElementById('auth-modal-backdrop');
+      var card = document.getElementById('auth-modal');
+      if (backdrop && e.target === backdrop) { _closeAuthModal(); return; }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') _closeAuthModal();
+    });
+  }
+
+  function _openAuthModal(tab) {
+    var backdrop = document.getElementById('auth-modal-backdrop');
+    if (!backdrop) return;
+    backdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    _switchAuthTab(tab || 'login');
+  }
+
+  function _closeAuthModal() {
+    var backdrop = document.getElementById('auth-modal-backdrop');
+    if (!backdrop) return;
+    backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function _switchAuthTab(tab) {
+    var loginPanel    = document.getElementById('modal-login-panel');
+    var registerPanel = document.getElementById('modal-register-panel');
+    var loginTab      = document.getElementById('modal-tab-login');
+    var registerTab   = document.getElementById('modal-tab-register');
+    if (!loginPanel || !registerPanel) return;
+    if (tab === 'register') {
+      loginPanel.style.display    = 'none';
+      registerPanel.style.display = '';
+      if (loginTab)    { loginTab.classList.remove('active');    loginTab.setAttribute('aria-selected', 'false'); }
+      if (registerTab) { registerTab.classList.add('active');    registerTab.setAttribute('aria-selected', 'true'); }
+    } else {
+      loginPanel.style.display    = '';
+      registerPanel.style.display = 'none';
+      if (loginTab)    { loginTab.classList.add('active');       loginTab.setAttribute('aria-selected', 'true'); }
+      if (registerTab) { registerTab.classList.remove('active'); registerTab.setAttribute('aria-selected', 'false'); }
+    }
+  }
+
+  function authSuccess(session) {
+    _closeAuthModal();
+    renderHeader();
+    var msg = session.isNew
+      ? 'Welcome to ShopAI, ' + session.name + '! 🎉'
+      : 'Welcome back, ' + session.name + '! 🎉';
+    if (window.Utils && window.Utils.showToast) {
+      window.Utils.showToast(msg, 'success');
+    }
+  }
+
+
     var badge = document.getElementById('cart-count');
     if (!badge) return;
     var count = window.CartManager ? window.CartManager.getCartCount() : 0;
@@ -717,7 +938,10 @@
   window.App = {
     init: init,
     updateCartCount: updateCartCount,
-    renderCartPage: renderCartPage
+    renderCartPage: renderCartPage,
+    openAuthModal: _openAuthModal,
+    closeAuthModal: _closeAuthModal,
+    authSuccess: authSuccess
   };
 
   document.addEventListener('DOMContentLoaded', init);

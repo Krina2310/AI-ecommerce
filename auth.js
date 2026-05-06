@@ -179,13 +179,14 @@
         // Save session (never store password)
         lsSet(LS_SESSION_KEY, { id: user.id, name: user.name, email: user.email });
 
-        // Show success toast if Utils available
-        if (window.Utils && window.Utils.showToast) {
-          window.Utils.showToast('Welcome back, ' + user.name + '! 🎉', 'success');
+        if (window.App && window.App.authSuccess) {
+          window.App.authSuccess({ name: user.name });
+        } else {
+          if (window.Utils && window.Utils.showToast) {
+            window.Utils.showToast('Welcome back, ' + user.name + '! 🎉', 'success');
+          }
+          setTimeout(function () { window.location.href = 'index.html'; }, 800);
         }
-
-        // Redirect after brief delay
-        setTimeout(function () { window.location.href = 'index.html'; }, 800);
       }).catch(function () {
         showAlert('login-alert', 'login-alert-msg', 'An error occurred. Please try again.');
         if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In'; }
@@ -278,11 +279,14 @@
         lsSet(LS_USERS_KEY, currentUsers);
         lsSet(LS_SESSION_KEY, { id: newUser.id, name: newUser.name, email: newUser.email });
 
-        if (window.Utils && window.Utils.showToast) {
-          window.Utils.showToast('Account created! Welcome to ShopAI 🎉', 'success');
+        if (window.App && window.App.authSuccess) {
+          window.App.authSuccess({ name: newUser.name, isNew: true });
+        } else {
+          if (window.Utils && window.Utils.showToast) {
+            window.Utils.showToast('Account created! Welcome to ShopAI 🎉', 'success');
+          }
+          setTimeout(function () { window.location.href = 'index.html'; }, 900);
         }
-
-        setTimeout(function () { window.location.href = 'index.html'; }, 900);
       }).catch(function () {
         showAlert('register-alert', 'register-alert-msg', 'An error occurred. Please try again.');
         if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account'; }
@@ -337,9 +341,19 @@
   }
 
   // ---- Boot ----
+  // Expose so main.js can call after injecting the modal
+  window.AuthModule = {
+    initLogin: initLogin,
+    initRegister: initRegister
+  };
+
+  // Auto-init on standalone auth pages (login.html / register.html)
   document.addEventListener('DOMContentLoaded', function () {
-    initLogin();
-    initRegister();
+    var path = window.location.pathname;
+    if (path.includes('login.html') || path.includes('register.html')) {
+      initLogin();
+      initRegister();
+    }
   });
 
 }());
