@@ -17,6 +17,17 @@
     catch (e) { return false; }
   }
 
+  // ---- Password hashing (SHA-256 via Web Crypto API) ----
+  function hashPassword(password) {
+    var encoder = new TextEncoder();
+    var data = encoder.encode(password);
+    return crypto.subtle.digest('SHA-256', data).then(function (hashBuffer) {
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(function (b) { return ('00' + b.toString(16)).slice(-2); })
+        .join('');
+    });
+  }
+
   // ---- Password strength ----
   function calcStrength(pw) {
     var score = 0;
@@ -145,31 +156,40 @@
       var password = document.getElementById('login-password').value;
       var remember = document.getElementById('remember-me').checked;
 
-      var users = lsGet(LS_USERS_KEY, []);
-      var user  = users.find(function (u) { return u.email === email; });
+      var btn = document.getElementById('login-btn');
+      if (btn) { btn.disabled = true; btn.textContent = 'Signing in…'; }
 
-      if (!user || user.password !== password) {
-        showAlert('login-alert', 'login-alert-msg', 'Incorrect email or password. Please try again.');
-        return;
-      }
+      hashPassword(password).then(function (hash) {
+        var users = lsGet(LS_USERS_KEY, []);
+        var user  = users.find(function (u) { return u.email === email; });
 
-      // Remember me
-      if (remember) {
-        lsSet('shopai_remember', email);
-      } else {
-        try { localStorage.removeItem('shopai_remember'); } catch (e) {}
-      }
+        if (!user || user.passwordHash !== hash) {
+          showAlert('login-alert', 'login-alert-msg', 'Incorrect email or password. Please try again.');
+          if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In'; }
+          return;
+        }
 
-      // Save session
-      lsSet(LS_SESSION_KEY, { id: user.id, name: user.name, email: user.email });
+        // Remember me
+        if (remember) {
+          lsSet('shopai_remember', email);
+        } else {
+          try { localStorage.removeItem('shopai_remember'); } catch (err) {}
+        }
 
-      // Show success toast if Utils available
-      if (window.Utils && window.Utils.showToast) {
-        window.Utils.showToast('Welcome back, ' + user.name + '! 🎉', 'success');
-      }
+        // Save session (never store password)
+        lsSet(LS_SESSION_KEY, { id: user.id, name: user.name, email: user.email });
 
-      // Redirect after brief delay
-      setTimeout(function () { window.location.href = 'index.html'; }, 800);
+        // Show success toast if Utils available
+        if (window.Utils && window.Utils.showToast) {
+          window.Utils.showToast('Welcome back, ' + user.name + '! 🎉', 'success');
+        }
+
+        // Redirect after brief delay
+        setTimeout(function () { window.location.href = 'index.html'; }, 800);
+      }).catch(function () {
+        showAlert('login-alert', 'login-alert-msg', 'An error occurred. Please try again.');
+        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In'; }
+      });
     });
   }
 
@@ -241,23 +261,32 @@
         return;
       }
 
-      var newUser = {
-        id:        Date.now().toString(36) + Math.random().toString(36).substr(2, 6),
-        name:      name,
-        email:     email,
-        password:  password,
-        createdAt: new Date().toISOString()
-      };
+      var btn = document.getElementById('register-btn');
+      if (btn) { btn.disabled = true; btn.textContent = 'Creating account…'; }
 
-      users.push(newUser);
-      lsSet(LS_USERS_KEY, users);
-      lsSet(LS_SESSION_KEY, { id: newUser.id, name: newUser.name, email: newUser.email });
+      hashPassword(password).then(function (hash) {
+        var newUser = {
+          id:           Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+          name:         name,
+          email:        email,
+          passwordHash: hash,
+          createdAt:    new Date().toISOString()
+        };
 
-      if (window.Utils && window.Utils.showToast) {
-        window.Utils.showToast('Account created! Welcome to ShopAI 🎉', 'success');
-      }
+        var currentUsers = lsGet(LS_USERS_KEY, []);
+        currentUsers.push(newUser);
+        lsSet(LS_USERS_KEY, currentUsers);
+        lsSet(LS_SESSION_KEY, { id: newUser.id, name: newUser.name, email: newUser.email });
 
-      setTimeout(function () { window.location.href = 'index.html'; }, 900);
+        if (window.Utils && window.Utils.showToast) {
+          window.Utils.showToast('Account created! Welcome to ShopAI 🎉', 'success');
+        }
+
+        setTimeout(function () { window.location.href = 'index.html'; }, 900);
+      }).catch(function () {
+        showAlert('register-alert', 'register-alert-msg', 'An error occurred. Please try again.');
+        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account'; }
+      });
     });
   }
 

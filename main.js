@@ -39,7 +39,7 @@
       try { var s = localStorage.getItem('shopai_session'); return s ? JSON.parse(s) : null; } catch(e) { return null; }
     }());
     var authLinks = session
-      ? '<a href="profile.html"><i class="fas fa-user-circle"></i> ' + session.name.split(' ')[0] + '</a>' +
+      ? '<a href="profile.html"><i class="fas fa-user-circle"></i> ' + ((session.name || 'Account').split(' ')[0]) + '</a>' +
         '<a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>'
       : '<a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>' +
         '<a href="register.html"><i class="fas fa-user-plus"></i> Register</a>';
