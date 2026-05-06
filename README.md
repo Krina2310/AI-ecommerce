@@ -59,4 +59,4 @@ Add screenshots/gifs here (optional).
 5. Open a Pull Request
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
