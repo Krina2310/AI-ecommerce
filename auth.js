@@ -149,7 +149,7 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       hideAlert('login-alert');
-      var valid = validateLoginEmail() & validateLoginPassword();
+      var valid = validateLoginEmail() && validateLoginPassword();
       if (!valid) return;
 
       var email    = document.getElementById('login-email').value.trim().toLowerCase();
