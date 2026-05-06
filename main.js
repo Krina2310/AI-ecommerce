@@ -3,6 +3,7 @@
 
   function init() {
     renderHeader();
+    initLogout();
     updateCartCount();
     initSearch();
     initMobileMenu();
@@ -26,6 +27,7 @@
     if (path.includes('checkout.html')) return 'checkout';
     if (path.includes('profile.html')) return 'profile';
     if (path.includes('search-results.html')) return 'search-results';
+    if (path.includes('login.html') || path.includes('register.html')) return 'auth';
     return 'index';
   }
 
@@ -33,6 +35,14 @@
     var header = document.getElementById('main-header');
     if (!header) return;
     var cartCount = window.CartManager ? window.CartManager.getCartCount() : 0;
+    var session = (function() {
+      try { var s = localStorage.getItem('shopai_session'); return s ? JSON.parse(s) : null; } catch(e) { return null; }
+    }());
+    var authLinks = session
+      ? '<a href="profile.html"><i class="fas fa-user-circle"></i> ' + ((session.name || 'Account').split(' ')[0]) + '</a>' +
+        '<a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>'
+      : '<a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>' +
+        '<a href="register.html"><i class="fas fa-user-plus"></i> Register</a>';
     header.innerHTML =
       '<div class="header-inner container">' +
         '<a href="index.html" class="logo">' +
@@ -46,6 +56,7 @@
             '<i class="fas fa-shopping-cart"></i> Cart' +
             '<span class="cart-badge" id="cart-count">' + (cartCount > 0 ? cartCount : '') + '</span>' +
           '</a>' +
+          authLinks +
         '</nav>' +
         '<div class="header-actions">' +
           '<button class="btn-icon search-toggle" id="search-toggle" aria-label="Search">' +
@@ -65,6 +76,16 @@
           '<div class="search-suggestions" id="search-suggestions"></div>' +
         '</div>' +
       '</div>';
+  }
+
+  function initLogout() {
+    document.addEventListener('click', function(e) {
+      var link = e.target.closest('#logout-link');
+      if (!link) return;
+      e.preventDefault();
+      try { localStorage.removeItem('shopai_session'); } catch(err) {}
+      window.location.href = 'login.html';
+    });
   }
 
   function updateCartCount() {

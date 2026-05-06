@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – ShopAI</title>
+  <meta name="description" content="Sign in to your ShopAI account to access personalized recommendations.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="rsponsive.css">
+  <style>
+    .auth-page {
+      min-height: calc(100vh - var(--header-height));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-mid) 60%, #16213e 100%);
+    }
+    .auth-card {
+      background: #fff;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 440px;
+      padding: 44px 40px;
+      animation: slideUp 0.35s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .auth-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 28px;
+      text-decoration: none;
+    }
+    .auth-logo i { color: var(--accent); }
+    .auth-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    .auth-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .password-wrapper .form-input {
+      padding-right: 44px;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      font-size: 1rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+    }
+    .toggle-password:hover { color: var(--primary); }
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+    }
+    .form-check input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .form-footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .forgot-link {
+      font-size: 0.875rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .forgot-link:hover { text-decoration: underline; }
+    .btn-submit {
+      width: 100%;
+      justify-content: center;
+      padding: 13px 24px;
+      font-size: 1rem;
+    }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 22px 0;
+      color: var(--text-light);
+      font-size: 0.82rem;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .auth-switch {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .auth-switch a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .auth-switch a:hover { text-decoration: underline; }
+    .form-input-icon-wrap {
+      position: relative;
+    }
+    .form-input-icon-wrap .form-input {
+      padding-left: 40px;
+    }
+    .form-input-icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      font-size: 0.95rem;
+      pointer-events: none;
+    }
+    .alert {
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 18px;
+      display: none;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .alert.show { display: flex; }
+    .alert-error {
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.3);
+      color: #b91c1c;
+    }
+    .alert-success {
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #065f46;
+    }
+    @media (max-width: 480px) {
+      .auth-card { padding: 32px 20px; }
+      .auth-title { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header id="main-header"></header>
+
+  <main class="auth-page">
+    <div class="auth-card">
+
+      <a href="index.html" class="auth-logo">
+        <i class="fas fa-robot"></i> ShopAI
+      </a>
+
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-subtitle">Sign in to your account to continue</p>
+
+      <div class="alert alert-error" id="login-alert" role="alert">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="login-alert-msg">Invalid email or password.</span>
+      </div>
+
+      <form id="login-form" novalidate>
+
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email address</label>
+          <div class="form-input-icon-wrap">
+            <i class="fas fa-envelope form-input-icon"></i>
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              class="form-input"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+          <span class="form-error" id="login-email-error"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div class="password-wrapper form-input-icon-wrap">
+            <i class="fas fa-lock form-input-icon"></i>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              class="form-input"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            >
+            <button type="button" class="toggle-password" id="toggle-login-pw" aria-label="Toggle password visibility">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+          <span class="form-error" id="login-password-error"></span>
+        </div>
+
+        <div class="form-footer-row">
+          <label class="form-check">
+            <input type="checkbox" id="remember-me" name="rememberMe">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot-link" id="forgot-password-link">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit" id="login-btn">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+
+      </form>
+
+      <div class="auth-divider">or</div>
+
+      <p class="auth-switch">
+        Don't have an account? <a href="register.html">Create one free</a>
+      </p>
+
+    </div>
+  </main>
+
+  <script src="utils.js"></script>
+  <script src="cart-manager.js"></script>
+  <script src="auth.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
