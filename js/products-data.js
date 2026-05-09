@@ -12,7 +12,7 @@ window.productsData = [
     reviews: 1234,
     stock: 45,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=1",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
     relatedProducts: [2, 3, 7, 8],
     viewCount: 8920,
     purchaseCount: 2341
@@ -29,7 +29,7 @@ window.productsData = [
     reviews: 876,
     stock: 22,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=2",
+    image: "img/products/smartTV.jpg",
     relatedProducts: [1, 3, 6, 10],
     viewCount: 12450,
     purchaseCount: 1890
@@ -46,7 +46,7 @@ window.productsData = [
     reviews: 2100,
     stock: 78,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=3",
+    image: "img/products/keyboard.jpg",
     relatedProducts: [4, 5, 1, 2],
     viewCount: 9870,
     purchaseCount: 3210
@@ -63,7 +63,7 @@ window.productsData = [
     reviews: 1567,
     stock: 103,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=4",
+    image: "img/products/mouse.jpg",
     relatedProducts: [3, 5, 1, 2],
     viewCount: 7650,
     purchaseCount: 2890
@@ -80,7 +80,7 @@ window.productsData = [
     reviews: 893,
     stock: 250,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=5",
+    image: "img/products/PC-Stand.jpg",
     relatedProducts: [3, 4, 6, 7],
     viewCount: 5430,
     purchaseCount: 1240
@@ -97,7 +97,7 @@ window.productsData = [
     reviews: 3456,
     stock: 400,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=6",
+    image: "img/products/charger.jpg",
     relatedProducts: [7, 8, 1, 3],
     viewCount: 15670,
     purchaseCount: 5430
@@ -114,7 +114,7 @@ window.productsData = [
     reviews: 2345,
     stock: 87,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=7",
+    image: "img/products/earbuds.jpg",
     relatedProducts: [1, 6, 8, 3],
     viewCount: 11230,
     purchaseCount: 4120
@@ -131,7 +131,7 @@ window.productsData = [
     reviews: 1876,
     stock: 134,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=8",
+    image: "img/products/speaker.jpg",
     relatedProducts: [1, 7, 6, 2],
     viewCount: 8900,
     purchaseCount: 2780
@@ -150,7 +150,7 @@ window.productsData = [
     reviews: 567,
     stock: 34,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=9",
+    image: "img/products/jacket.jpg",
     relatedProducts: [10, 11, 12, 13],
     viewCount: 6780,
     purchaseCount: 890
@@ -167,7 +167,7 @@ window.productsData = [
     reviews: 1234,
     stock: 89,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=10",
+    image: "img/products/dress.jpg",
     relatedProducts: [9, 11, 12, 13],
     viewCount: 9870,
     purchaseCount: 2340
@@ -184,7 +184,7 @@ window.productsData = [
     reviews: 789,
     stock: 145,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=11",
+    image: "img/products/pants.jpg",
     relatedProducts: [9, 12, 13, 10],
     viewCount: 5430,
     purchaseCount: 1670
@@ -201,7 +201,7 @@ window.productsData = [
     reviews: 2100,
     stock: 210,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=12",
+    image: "img/products/sneakers.jpg",
     relatedProducts: [9, 10, 11, 13],
     viewCount: 11230,
     purchaseCount: 3450
@@ -218,7 +218,7 @@ window.productsData = [
     reviews: 456,
     stock: 178,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=13",
+    image: "img/products/scarf.jpg",
     relatedProducts: [9, 10, 11, 12],
     viewCount: 4560,
     purchaseCount: 1230
@@ -237,7 +237,7 @@ window.productsData = [
     reviews: 2345,
     stock: 567,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=14",
+    image: "img/products/ArtML.jpg",
     relatedProducts: [15, 16, 17, 18],
     viewCount: 13450,
     purchaseCount: 4560
@@ -254,7 +254,7 @@ window.productsData = [
     reviews: 5678,
     stock: 890,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=15",
+    image: "img/products/CleanCode.jpg",
     relatedProducts: [14, 16, 17, 18],
     viewCount: 23450,
     purchaseCount: 8900
@@ -271,7 +271,7 @@ window.productsData = [
     reviews: 7890,
     stock: 1200,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=16",
+    image: "img/products/moneyBook.jpg",
     relatedProducts: [14, 15, 17, 18],
     viewCount: 34560,
     purchaseCount: 12300
@@ -288,7 +288,7 @@ window.productsData = [
     reviews: 12345,
     stock: 2340,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=17",
+    image: "img/products/atomicHabits.jpg",
     relatedProducts: [14, 15, 16, 18],
     viewCount: 45670,
     purchaseCount: 18900
@@ -305,7 +305,7 @@ window.productsData = [
     reviews: 4567,
     stock: 678,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=18",
+    image: "img/products/jsGP.jpg",
     relatedProducts: [14, 15, 16, 17],
     viewCount: 19870,
     purchaseCount: 6780
@@ -324,7 +324,7 @@ window.productsData = [
     reviews: 1234,
     stock: 67,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=19",
+    image: "img/products/herbgarden.jpg",
     relatedProducts: [20, 21, 22, 23],
     viewCount: 7890,
     purchaseCount: 2340
@@ -341,7 +341,7 @@ window.productsData = [
     reviews: 2345,
     stock: 45,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=20",
+    image: "img/products/cookware.jpg",
     relatedProducts: [19, 21, 22, 23],
     viewCount: 13450,
     purchaseCount: 3450
@@ -358,7 +358,7 @@ window.productsData = [
     reviews: 3456,
     stock: 89,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=21",
+    image: "img/products/mtrxtopper.jpg",
     relatedProducts: [19, 20, 22, 23],
     viewCount: 16780,
     purchaseCount: 5670
@@ -375,7 +375,7 @@ window.productsData = [
     reviews: 1890,
     stock: 32,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=22",
+    image: "img/products/vc.jpg",
     relatedProducts: [19, 20, 21, 23],
     viewCount: 23450,
     purchaseCount: 4560
@@ -392,7 +392,7 @@ window.productsData = [
     reviews: 4567,
     stock: 234,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=23",
+    image: "img/products/diffuser.jpg",
     relatedProducts: [19, 20, 21, 22],
     viewCount: 12340,
     purchaseCount: 5670
@@ -411,7 +411,7 @@ window.productsData = [
     reviews: 3456,
     stock: 28,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=24",
+    image: "img/products/dumbells.jpg",
     relatedProducts: [25, 26, 27, 28],
     viewCount: 18900,
     purchaseCount: 4560
@@ -428,7 +428,7 @@ window.productsData = [
     reviews: 5678,
     stock: 345,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=25",
+    image: "img/products/yogamat.jpg",
     relatedProducts: [24, 26, 27, 28],
     viewCount: 23450,
     purchaseCount: 8900
@@ -445,7 +445,7 @@ window.productsData = [
     reviews: 4567,
     stock: 89,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=26",
+    image: "img/products/smartwatch.jpg",
     relatedProducts: [24, 25, 27, 28],
     viewCount: 21340,
     purchaseCount: 6780
@@ -462,7 +462,7 @@ window.productsData = [
     reviews: 6789,
     stock: 567,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=27",
+    image: "img/products/band.jpg",
     relatedProducts: [24, 25, 26, 28],
     viewCount: 15670,
     purchaseCount: 7890
@@ -479,7 +479,7 @@ window.productsData = [
     reviews: 3456,
     stock: 123,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=28",
+    image: "img/products/running-shoes.jpg",
     relatedProducts: [24, 25, 26, 27],
     viewCount: 19870,
     purchaseCount: 5670
@@ -496,7 +496,7 @@ window.productsData = [
     reviews: 8901,
     stock: 890,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=29",
+    image: "img/products/bottle.jpg",
     relatedProducts: [24, 25, 26, 27],
     viewCount: 11230,
     purchaseCount: 9870
@@ -513,7 +513,7 @@ window.productsData = [
     reviews: 5678,
     stock: 456,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=30",
+    image: "img/products/roller.jpg",
     relatedProducts: [25, 27, 26, 28],
     viewCount: 12340,
     purchaseCount: 6780
@@ -530,7 +530,7 @@ window.productsData = [
     reviews: 3456,
     stock: 234,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=31",
+    image: "img/products/chargingpad.jpeg",
     relatedProducts: [6, 7, 1, 3],
     viewCount: 9870,
     purchaseCount: 4560
@@ -547,7 +547,7 @@ window.productsData = [
     reviews: 2345,
     stock: 345,
     inStock: true,
-    image: "https://picsum.photos/400/300?random=32",
+    image: "img/products/blanket.jpg",
     relatedProducts: [21, 23, 20, 19],
     viewCount: 8900,
     purchaseCount: 3450

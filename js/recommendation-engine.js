@@ -205,10 +205,6 @@
       .slice(0, limit);
   }
 
-  /**
-   * Get all recommendation types for a given context.
-   * context = { productId, page }
-   */
   function getAllRecommendations(context) {
     context = context || {};
     var result = {};

@@ -2,25 +2,223 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login | AI-ecommerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – ShopAI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .auth-container {
+      max-width: 400px;
+      margin: 60px auto;
+      padding: 40px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-container h1 {
+      margin-bottom: 8px;
+      text-align: center;
+      color: var(--text-dark);
+    }
+
+    .auth-container p {
+      text-align: center;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-size: 0.85rem;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .auth-button {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .auth-button:hover {
+      background: #2563eb;
+    }
+
+    .auth-button:disabled {
+      background: var(--text-light);
+      cursor: not-allowed;
+    }
+
+    .auth-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .auth-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .auth-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Success & Error Messages */
+    .message-box {
+      padding: 14px 16px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      display: none;
+      font-weight: 500;
+      animation: slideDown 0.3s ease;
+    }
+
+    .message-box.show {
+      display: block;
+    }
+
+    .message-box.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .message-box.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .remember-me input {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    .remember-me label {
+      margin: 0;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="form-container">
-    <h2>Login</h2>
-    <form id="loginForm" autocomplete="off">
-      <label>Username or Email</label>
-      <input type="text" id="loginUser" required>
-      <label>Password</label>
-      <input type="password" id="loginPass" required>
-      <label>
-        <input type="checkbox" id="rememberMe"> Remember Me
-      </label>
-      <button type="submit">Login</button>
-      <p>Don't have an account? <a href="register.html">Register</a></p>
-      <div id="loginError"></div>
+  <header id="main-header"></header>
+
+  <div class="auth-container">
+    <h1><i class="fas fa-sign-in-alt"></i> Login</h1>
+    <p>Welcome back to ShopAI</p>
+
+    <div class="message-box" id="message-box"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="loginUser">Username or Email</label>
+        <input type="text" id="loginUser" name="loginUser" required>
+        <div class="error-message" id="user-error"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" name="loginPass" required>
+        <div class="error-message" id="pass-error"></div>
+      </div>
+
+      <div class="remember-me">
+        <input type="checkbox" id="rememberMe" name="rememberMe">
+        <label for="rememberMe">Remember me</label>
+      </div>
+
+      <button type="submit" class="auth-button" id="login-btn">Login</button>
     </form>
+
+    <div class="auth-link">
+      Don't have an account? <a href="register.html">Register here</a>
+    </div>
   </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><i class="fas fa-robot"></i> ShopAI</a>
+          <p>AI-powered shopping for smarter discoveries.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ShopAI. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
   <script src="js/auth.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // This code runs the login form logic
+    // The actual login logic is in auth.js, we just show messages here
+  </script>
 </body>
 </html>

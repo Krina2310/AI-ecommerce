@@ -31,11 +31,14 @@
         <i class="fas fa-user"></i>
       </div>
       <div class="profile-info">
-        <h2>Welcome, Shopper!</h2>
+        <h2 id="profile-name">Welcome, Shopper!</h2>
         <p><i class="fas fa-robot" style="color:var(--primary);"></i> Your AI shopping assistant is learning your preferences</p>
         <p style="margin-top:6px; font-size:0.85rem; color:var(--text-light);">Data stored locally in your browser – no account required</p>
       </div>
       <div style="margin-left:auto;">
+        <button class="btn btn-primary" id="logout-btn" style="display:none;">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
         <button class="btn btn-danger" id="clear-history-btn">
           <i class="fas fa-trash"></i> Clear History
         </button>
@@ -158,5 +161,65 @@
   <script src="js/recommendation-engine.js"></script>
   <script src="js/cart-manager.js"></script>
   <script src="js/main.js"></script>
+
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var loggedInUser = window.Auth.getLoggedInUser();
+      var profileNameEl = document.getElementById('profile-name');
+      var logoutBtn = document.getElementById('logout-btn');
+
+      if (loggedInUser) {
+        // User is logged in
+        profileNameEl.textContent = 'Welcome, ' + loggedInUser.name + '!';
+        if (logoutBtn) logoutBtn.style.display = 'inline-block';
+      } else {
+        // User is not logged in
+        profileNameEl.textContent = 'Welcome, Shopper!';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+      }
+
+      // Logout functionality
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          if (confirm('Are you sure you want to logout?')) {
+            window.Auth.logout();
+            window.location.href = 'login.html';
+          }
+        });
+      }
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var loggedInUser = window.Auth.getCurrentUser();
+      var profileNameEl = document.getElementById('profile-name');
+      var logoutBtn = document.getElementById('logout-btn');
+
+      console.log('Logged In User:', loggedInUser); // Debug log
+
+      if (loggedInUser && loggedInUser.username) {
+        // User is logged in - show username
+        profileNameEl.textContent = 'Welcome, ' + loggedInUser.username + '!';
+        if (logoutBtn) logoutBtn.style.display = 'inline-block';
+      } else {
+        // User is not logged in
+        profileNameEl.textContent = 'Welcome, Shopper!';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+      }
+
+      // Logout functionality
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+          if (confirm('Are you sure you want to logout?')) {
+            window.Auth.logout();
+            window.location.href = 'login.html';
+          }
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>

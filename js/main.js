@@ -29,43 +29,66 @@
     return 'index';
   }
 
-  function renderHeader() {
-    var header = document.getElementById('main-header');
-    if (!header) return;
-    var cartCount = window.CartManager ? window.CartManager.getCartCount() : 0;
-    header.innerHTML =
-      '<div class="header-inner container">' +
-        '<a href="index.html" class="logo">' +
-          '<i class="fas fa-robot"></i> ShopAI' +
+function renderHeader() {
+  var header = document.getElementById('main-header');
+  if (!header) return;
+  var cartCount = window.CartManager ? window.CartManager.getCartCount() : 0;
+  var loggedInUser = window.Auth ? window.Auth.getCurrentUser() : null;
+  
+  var headerContent = 
+    '<div class="header-inner container">' +
+      '<a href="index.html" class="logo">' +
+        '<i class="fas fa-robot"></i> ShopAI' +
+      '</a>' +
+      '<nav class="nav-links" id="nav-links">' +
+        '<a href="index.html"><i class="fas fa-home"></i> Home</a>' +
+        '<a href="products.html"><i class="fas fa-th-large"></i> Products</a>' +
+        '<a href="profile.html"><i class="fas fa-user"></i> Profile</a>' +
+        '<a href="cart.html" class="cart-link">' +
+          '<i class="fas fa-shopping-cart"></i> Cart' +
+          '<span class="cart-badge" id="cart-count">' + (cartCount > 0 ? cartCount : '') + '</span>' +
         '</a>' +
-        '<nav class="nav-links" id="nav-links">' +
-          '<a href="index.html"><i class="fas fa-home"></i> Home</a>' +
-          '<a href="products.html"><i class="fas fa-th-large"></i> Products</a>' +
-          '<a href="profile.html"><i class="fas fa-user"></i> Profile</a>' +
-          '<a href="cart.html" class="cart-link">' +
-            '<i class="fas fa-shopping-cart"></i> Cart' +
-            '<span class="cart-badge" id="cart-count">' + (cartCount > 0 ? cartCount : '') + '</span>' +
-          '</a>' +
-        '</nav>' +
-        '<div class="header-actions">' +
-          '<button class="btn-icon search-toggle" id="search-toggle" aria-label="Search">' +
-            '<i class="fas fa-search"></i>' +
-          '</button>' +
-          '<button class="btn-icon mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">' +
-            '<i class="fas fa-bars"></i>' +
-          '</button>' +
-        '</div>' +
+        (loggedInUser ? 
+          '<a href="#" id="logout-header-btn" style="color:#e74c3c;"><i class="fas fa-sign-out-alt"></i> Logout (' + loggedInUser.username + ')</a>' 
+          : 
+          '<a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a>'
+        ) +
+      '</nav>' +
+      '<div class="header-actions">' +
+        '<button class="btn-icon search-toggle" id="search-toggle" aria-label="Search">' +
+          '<i class="fas fa-search"></i>' +
+        '</button>' +
+        '<button class="btn-icon mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Menu">' +
+          '<i class="fas fa-bars"></i>' +
+        '</button>' +
       '</div>' +
-      '<div class="search-bar-dropdown" id="search-bar-dropdown">' +
-        '<div class="container">' +
-          '<form class="header-search-form" id="header-search-form" action="search-results.html" method="get">' +
-            '<input type="text" name="q" id="header-search-input" placeholder="Search products, brands, categories..." autocomplete="off">' +
-            '<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>' +
-          '</form>' +
-          '<div class="search-suggestions" id="search-suggestions"></div>' +
-        '</div>' +
-      '</div>';
+    '</div>' +
+    '<div class="search-bar-dropdown" id="search-bar-dropdown">' +
+      '<div class="container">' +
+        '<form class="header-search-form" id="header-search-form" action="search-results.html" method="get">' +
+          '<input type="text" name="q" id="header-search-input" placeholder="Search products, brands, categories..." autocomplete="off">' +
+          '<button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>' +
+        '</form>' +
+        '<div class="search-suggestions" id="search-suggestions"></div>' +
+      '</div>' +
+    '</div>';
+
+  header.innerHTML = headerContent;
+
+  // Add logout functionality
+  if (loggedInUser) {
+    var logoutBtn = document.getElementById('logout-header-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('Are you sure you want to logout?')) {
+          window.Auth.logout();
+          window.location.href = 'login.html';
+        }
+      });
+    }
   }
+}
 
   function updateCartCount() {
     var badge = document.getElementById('cart-count');
@@ -211,6 +234,8 @@
         toShow.forEach(function(p) {
           grid.appendChild(window.Utils.createProductCard(p, false));
         });
+        // Attach add-to-cart event handlers
+        attachAddToCartHandlers();
       }
       var resultCount = document.getElementById('result-count');
       if (resultCount) resultCount.textContent = filtered.length + ' products';
@@ -220,9 +245,41 @@
       }
     }
 
+
+    // Attach add-to-cart handlers
+    function attachAddToCartHandlers() {
+      var grid = document.getElementById('products-grid');
+      if (!grid) return;
+      
+      // Remove old listeners by cloning to prevent duplicate events
+      grid.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
+        var newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+      });
+      
+      // Now attach fresh listeners
+      grid.querySelectorAll('.add-to-cart-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var productId = parseInt(btn.getAttribute('data-product-id'));
+          if (window.CartManager) {
+            var result = window.CartManager.addToCart(productId, 1);
+            if (window.Utils) {
+              window.Utils.showToast(result.message || 'Added to cart!', result.success ? 'success' : 'error');
+            }
+            if (window.App) window.App.updateCartCount();
+          }
+        });
+      });
+    }
+
     // Attach filter events
     document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(function(el) {
-      el.addEventListener('change', applyFilters);
+      el.addEventListener('change', function() {
+        applyFilters();
+        attachAddToCartHandlers();
+      });
     });
     ['min-price', 'max-price'].forEach(function(id) {
       var el = document.getElementById(id);
@@ -576,6 +633,13 @@
   }
 
   function initProfilePage() {
+    // Display logged in user's name
+    var loggedInUser = window.Auth ? window.Auth.getCurrentUser() : null;
+    var userNameDisplay = document.getElementById('user-profile-name');
+    if (userNameDisplay && loggedInUser) {
+      userNameDisplay.textContent = loggedInUser.name || loggedInUser.username || 'User';
+    }
+
     // Browsing history
     var history = window.UserTracking.getBrowsingHistory();
     var historyProducts = history.slice(0, 8).map(window.getProductById).filter(Boolean);
@@ -700,4 +764,7 @@
   };
 
   document.addEventListener('DOMContentLoaded', init);
+    // Make modal functions global
+  window.showProductModal = window.Utils.showProductModal;
+  window.closeProductModal = window.Utils.closeProductModal;
 })();

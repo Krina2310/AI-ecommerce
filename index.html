@@ -146,9 +146,9 @@
           <p>Your AI-powered shopping companion. We learn your preferences and surface products you'll love.</p>
           <div class="footer-social" style="margin-top:16px;">
             <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://github.com" aria-label="GitHub"><i class="fab fa-github"></i></a>
           </div>
         </div>
         <div class="footer-col">
@@ -172,10 +172,10 @@
         <div class="footer-col">
           <h4>Info</h4>
           <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html">Terms of Service</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
           </ul>
         </div>
       </div>
@@ -186,12 +186,65 @@
     </div>
   </footer>
 
+
+  <!-- Product Modal -->
+  <div id="product-modal" class="product-modal">
+    <div class="product-modal-content">
+      <button class="modal-close" id="modal-close-btn">&times;</button>
+      
+      <div class="modal-body">
+        <div class="modal-images-section">
+          <div class="main-image-container">
+            <img id="modal-main-image" src="" alt="Product" class="modal-main-image">
+          </div>
+        </div>
+
+        <div class="modal-info-section">
+          <span class="modal-category-badge" id="modal-category"></span>
+          <h2 id="modal-product-name"></h2>
+          
+          <div class="modal-rating">
+            <div class="stars" id="modal-stars"></div>
+            <span id="modal-rating-text"></span>
+          </div>
+
+          <div class="modal-price-section">
+            <span class="modal-price" id="modal-price"></span>
+            <span class="modal-stock" id="modal-stock"></span>
+          </div>
+
+          <p class="modal-description" id="modal-description"></p>
+
+          <div class="modal-brand">
+            <strong>Brand:</strong>
+            <span id="modal-brand"></span>
+          </div>
+
+          <div class="modal-tags" id="modal-tags"></div>
+
+          <div class="modal-quantity-section">
+            <label>Quantity:</label>
+            <div class="quantity-selector">
+              <button class="qty-btn" id="modal-qty-minus">−</button>
+              <input type="number" id="modal-qty-input" value="1" min="1">
+              <button class="qty-btn" id="modal-qty-plus">+</button>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-lg modal-add-to-cart" id="modal-add-to-cart">
+            <i class="fas fa-cart-plus"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Scripts -->
   <script src="js/products-data.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/user-tracking.js"></script>
   <script src="js/recommendation-engine.js"></script>
   <script src="js/cart-manager.js"></script>
+  <script src="js/auth.js"></script>        
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us – ShopAI</title>
+  <meta name="description" content="Get in touch with ShopAI customer support.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .contact-form {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color var(--transition);
+      color: var(--text);
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(108,99,255,0.1);
+    }
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .contact-info-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-info-content h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .contact-info-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="main-header"></header>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1><i class="fas fa-envelope"></i> Contact Us</h1>
+      <p>Get in touch with our support team</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container" style="padding-top:64px; padding-bottom:64px;">
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; margin-bottom:64px;">
+
+      <!-- Contact Form -->
+      <div>
+        <h2 style="font-size:1.5rem; font-weight:700; color:var(--dark); margin-bottom:24px;">Send us a Message</h2>
+        <form class="contact-form" id="contact-form" onsubmit="handleContactForm(event)">
+
+          <div class="form-group">
+            <label class="form-label" for="contact-name">Full Name <span style="color:var(--error);">*</span></label>
+            <input type="text" id="contact-name" class="form-input" placeholder="John Doe" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-email">Email Address <span style="color:var(--error);">*</span></label>
+            <input type="email" id="contact-email" class="form-input" placeholder="john@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-phone">Phone Number (Optional)</label>
+            <input type="tel" id="contact-phone" class="form-input" placeholder="+1 (555) 000-0000">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-subject">Subject <span style="color:var(--error);">*</span></label>
+            <input type="text" id="contact-subject" class="form-input" placeholder="How can we help?" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-category">Category</label>
+            <select id="contact-category" class="form-input" style="cursor:pointer;">
+              <option value="">Select a category</option>
+              <option value="order">Order Inquiry</option>
+              <option value="product">Product Question</option>
+              <option value="refund">Refund/Return</option>
+              <option value="technical">Technical Issue</option>
+              <option value="feedback">Feedback</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Message <span style="color:var(--error);">*</span></label>
+            <textarea id="contact-message" class="form-textarea" placeholder="Tell us more about your inquiry..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Information -->
+      <div>
+        <h2 style="font-size:1.5rem; font-weight:700; color:var(--dark); margin-bottom:24px;">Get in Touch</h2>
+
+        <div class="contact-info-box">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-info-content">
+            <h3>Address</h3>
+            <p> Royal Holloway, University of London<br>Egham, Surrey, TW20 0EX<br>United Kingdom</p>
+          </div>
+        </div>
+
+        <div class="contact-info-box">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="contact-info-content">
+            <h3>Phone</h3>
+            <p><a href="tel:+44 7827776962" style="color:var(--primary); text-decoration:none;">+44 7827776962</a><br>Mon-Fri, 9AM-6PM PST</p>
+          </div>
+        </div>
+
+        <div class="contact-info-box">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-info-content">
+            <h3>Email</h3>
+            <p><a href="mailto:support@shopai.com" style="color:var(--primary); text-decoration:none;">support@shopai.com</a><br>We reply within 24 hours</p>
+            <p><a href="mailto:krina231005@gmail.com" style="color:var(--primary); text-decoration:none;">krina231005@gmail.com</a><br>We reply within 24 hours</p>
+
+          </div>
+        </div>
+
+        <div class="contact-info-box">
+          <div class="contact-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="contact-info-content">
+            <h3>Business Hours</h3>
+            <p>Monday - Friday: 9:00 AM - 6:00 PM PST<br>Saturday - Sunday: 10:00 AM - 4:00 PM PST</p>
+          </div>
+        </div>
+
+        <!-- Social Media -->
+        <div style="margin-top:32px;">
+          <h3 style="font-size:1rem; font-weight:700; color:var(--dark); margin-bottom:16px;">Follow Us</h3>
+          <div style="display:flex; gap:12px;">
+            <a href="#" style="width:48px; height:48px; background:var(--primary); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; transition:all var(--transition);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(108,99,255,0.4)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" style="width:48px; height:48px; background:var(--primary); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; transition:all var(--transition);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(108,99,255,0.4)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" style="width:48px; height:48px; background:var(--primary); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; transition:all var(--transition);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(108,99,255,0.4)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" style="width:48px; height:48px; background:var(--primary); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.2rem; transition:all var(--transition);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(108,99,255,0.4)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FAQ Section -->
+    <section style="background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:48px; margin-bottom:48px;">
+      <h2 style="font-size:1.5rem; font-weight:700; color:var(--dark); margin-bottom:32px; text-align:center;">Frequently Asked Questions</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+
+        <div>
+          <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:8px;">How long does shipping take?</h3>
+          <p style="color:var(--text-muted); line-height:1.6;">Standard shipping takes 5-7 business days. Express shipping is available for 2-3 business day delivery.</p>
+        </div>
+
+        <div>
+          <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:8px;">What's your return policy?</h3>
+          <p style="color:var(--text-muted); line-height:1.6;">We accept returns within 30 days of purchase. Items must be in original condition with all tags attached.</p>
+        </div>
+
+        <div>
+          <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:8px;">Do you offer international shipping?</h3>
+          <p style="color:var(--text-muted); line-height:1.6;">Currently, we ship to the United States only. International shipping coming soon!</p>
+        </div>
+
+        <div>
+          <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:8px;">How can I track my order?</h3>
+          <p style="color:var(--text-muted); line-height:1.6;">Once shipped, you'll receive a tracking number via email. Use it to track your package on our website.</p>
+        </div>
+
+        <div>
+          <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:8px;">Is my payment information secure?</h3>
+          <p style="color:var(--text-muted); line-height:1.6;">Yes! We use industry-standard SSL encryption to protect all payment information.</p>
+        </div>
+
+        <div>
+          <h3 style="font-size:1.05rem; font-weight:700; color:var(--dark); margin-bottom:8px;">Can I modify my order?</h3>
+          <p style="color:var(--text-muted); line-height:1.6;">Orders can be modified within 2 hours of placement. Contact us immediately if you need changes.</p>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><i class="fas fa-robot"></i> ShopAI</a>
+          <p>Your AI-powered shopping companion. We learn your preferences and surface products you'll love.</p>
+          <div class="footer-social" style="margin-top:16px;">
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="products.html?category=Electronics">Electronics</a></li>
+            <li><a href="products.html?category=Fashion">Fashion</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html">Terms of Service</a></li>
+            <li><a href="#">Cookie Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ShopAI. All rights reserved.</span>
+        <span>Built with <i class="fas fa-heart" style="color:var(--secondary);"></i> and AI</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="products-data.js"></script>
+  <script src="utils.js"></script>
+  <script src="user-tracking.js"></script>
+  <script src="recommendation-engine.js"></script>
+  <script src="cart-manager.js"></script>
+  <script src="main.js"></script>
+
+  <!-- Contact Form Handler -->
+  <script>
+    function handleContactForm(event) {
+      event.preventDefault();
+      
+      const form = document.getElementById('contact-form');
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const subject = document.getElementById('contact-subject').value;
+      const message = document.getElementById('contact-message').value;
+      
+      // Validate form
+      if (!name || !email || !subject || !message) {
+        if (window.Utils) {
+          window.Utils.showToast('Please fill in all required fields.', 'error');
+        } else {
+          alert('Please fill in all required fields.');
+        }
+        return;
+      }
+      
+      // Show success message
+      if (window.Utils) {
+        window.Utils.showToast('Thank you! Your message has been sent. We\'ll get back to you within 24 hours.', 'success');
+      } else {
+        alert('Thank you! Your message has been sent. We\'ll get back to you within 24 hours.');
+      }
+      
+      // Reset form
+      form.reset();
+    }
+  </script>
+</body>
+</html>
