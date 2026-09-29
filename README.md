@@ -45,19 +45,6 @@ This repository contains an e-commerce website prototype that integrates AI-driv
 - `js/` – JavaScript source
 - `assets/` – images/icons
 
-## AI Recommendations
-Document here how recommendations are computed (client-side logic, API endpoint, model, etc.).
-
-## Screenshots
-Add screenshots/gifs here (optional).
-
-## Contributing
-1. Fork the repo
-2. Create a feature branch: `git checkout -b feature/my-change`
-3. Commit: `git commit -m "Add my change"`
-4. Push: `git push origin feature/my-change`
-5. Open a Pull Request
-
 ## License
 <<<<<<< HEAD
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
