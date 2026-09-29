@@ -19,7 +19,6 @@ This repository contains an e-commerce website prototype that integrates AI-driv
 
 ### Prerequisites
 - A modern web browser (Chrome/Edge/Firefox)
-- (Optional) A local static server (recommended)
 
 ### Run Locally
 1. Clone the repository
@@ -28,7 +27,7 @@ This repository contains an e-commerce website prototype that integrates AI-driv
    cd AI-ecommerce
    ```
 
-2. Start a local server (recommended)
+2. Start a local server
 
    **VS Code Live Server**
    - Install the *Live Server* extension
@@ -39,7 +38,7 @@ This repository contains an e-commerce website prototype that integrates AI-driv
    npx http-server .
    ```
 
-## Project Structure (update to match repo)
+## Project Structure
 - `index.html` – entry point
 - `css/` – stylesheets
 - `js/` – JavaScript source
